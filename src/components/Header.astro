@@ -1,0 +1,28 @@
+---
+import { navigation, company } from '../data';
+import Arrow from './Arrow.astro';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Bossbuss – startsida"><img src="/images/logo-black.svg" width="200" height="43" alt="Bossbuss" /></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation"><span>Meny</span><span class="menu-lines" aria-hidden="true"></span></button>
+    <nav id="navigation" aria-label="Huvudmeny">
+      {navigation.map(item => <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>)}
+      <a class="header-call" href={`tel:${company.phoneHref}`}><span>Ring oss</span><Arrow diagonal /></a>
+    </nav>
+  </div>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#navigation');
+  function closeMenu() { toggle?.setAttribute('aria-expanded', 'false'); nav?.classList.remove('is-open'); }
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    nav?.classList.toggle('is-open', open);
+  });
+  nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
+  document.addEventListener('click', e => { if (e.target instanceof Node && !document.querySelector('.site-header')?.contains(e.target)) closeMenu(); });
+</script>

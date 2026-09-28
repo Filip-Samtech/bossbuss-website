@@ -1,0 +1,11 @@
+---
+import { navigation } from '../data';
+---
+<footer class="site-footer">
+  <div class="container footer-top">
+    <a href="/" aria-label="Bossbuss – startsida"><img src="/images/logo-white.svg" alt="Bossbuss" width="180" height="38" loading="lazy" /></a>
+    <p>Tillsammans hela vägen.</p>
+    <nav aria-label="Sidfotsmeny">{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav>
+  </div>
+  <div class="container footer-bottom"><span>© {new Date().getFullYear()} Bossbuss</span><span>Bussresor med omtanke.</span><a href="#top">Till toppen ↑</a></div>
+</footer>

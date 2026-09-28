@@ -1,0 +1,62 @@
+---
+import { company } from '../data';
+import Arrow from './Arrow.astro';
+---
+<section class="contact-section" id="forfragan" aria-labelledby="contact-title">
+  <div class="container contact-grid">
+    <div class="contact-intro">
+      <p class="eyebrow"><span class="short-line"></span> Nästa resa börjar här</p>
+      <h2 id="contact-title">Vart vill <br />ni åka?</h2>
+      <p>Berätta om era planer. Vi hjälper er att hitta ett upplägg som passar just er resa.</p>
+      <a class="contact-email" href={`mailto:${company.email}`}>{company.email}<Arrow diagonal /></a>
+      <a class="contact-phone" href={`tel:${company.phoneHref}`}>{company.phone}</a>
+      <div class="address-columns">
+        <div><h3>Besök oss</h3><address>{company.street}<br />{company.city}</address></div>
+      </div>
+    </div>
+    <form class="contact-form" action="/api/contact" method="post">
+      <h3>Skicka en förfrågan</h3>
+      <p class="form-intro">Fyll i formuläret så återkommer vi till dig.</p>
+      <div class="form-row">
+        <label>Förnamn <span aria-hidden="true">*</span><input name="firstName" autocomplete="given-name" required maxlength="80" placeholder="Ditt förnamn" /></label>
+        <label>Efternamn <span aria-hidden="true">*</span><input name="lastName" autocomplete="family-name" required maxlength="80" placeholder="Ditt efternamn" /></label>
+      </div>
+      <label>E-post <span aria-hidden="true">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="namn@exempel.se" /></label>
+      <label>Ämne <span aria-hidden="true">*</span><input name="subject" required maxlength="160" placeholder="Vad gäller din förfrågan?" /></label>
+      <label>Meddelande <span aria-hidden="true">*</span><textarea name="message" rows="4" required minlength="10" maxlength="5000" placeholder="Vart vill ni resa? Berätta gärna datum och ungefär hur många ni är."></textarea></label>
+      <div class="honeypot" aria-hidden="true"><label>Webbplats<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <p class="form-privacy" id="form-privacy">Vi använder uppgifterna för att besvara din förfrågan. Alla fält är obligatoriska.</p>
+      <button class="button button-lime" type="submit" aria-describedby="form-privacy"><span>Skicka förfrågan</span><Arrow diagonal /></button>
+      <p class="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+      <noscript><p>Du kan också mejla direkt till <a href={`mailto:${company.email}`}>{company.email}</a>.</p></noscript>
+    </form>
+  </div>
+</section>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  form?.addEventListener('submit', async event => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = button.querySelector('span')!;
+    const status = form.querySelector<HTMLParagraphElement>('.form-status')!;
+    if (button.disabled) return;
+    button.disabled = true;
+    label.textContent = 'Skickar…';
+    status.textContent = '';
+    status.classList.remove('error');
+    try {
+      const response = await fetch('/api/contact', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(15000) });
+      const result = response.headers.get('content-type')?.includes('application/json') ? await response.json() : null;
+      if (!response.ok || !result?.ok) throw new Error(result?.message || 'Det gick inte att skicka just nu. Mejla info@bossbuss.com eller ring +46 76 881 91 20.');
+      status.textContent = 'Tack för din förfrågan! Vi återkommer så snart vi kan.';
+      form.reset();
+    } catch (error) {
+      status.classList.add('error');
+      status.textContent = error instanceof Error && error.name !== 'TimeoutError' ? error.message : 'Anslutningen tog för lång tid. Ditt meddelande finns kvar. Försök igen eller mejla info@bossbuss.com.';
+    } finally {
+      button.disabled = false;
+      label.textContent = 'Skicka förfrågan';
+      status.focus();
+    }
+  });
+</script>

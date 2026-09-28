@@ -1,0 +1,3 @@
+# Kopiera till .dev.vars för lokal förhandsvisning med Cloudflare.
+# Hemligheten läggs separat i Cloudflare inför publicering.
+RESEND_API_KEY=

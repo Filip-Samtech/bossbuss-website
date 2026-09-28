@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeading from '../components/PageHeading.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<Layout title="Om oss" description="Lär känna Bossbuss. Bussresor med personlig service och era önskemål i centrum, med utgångspunkt i Stockholmsområdet.">
+  <PageHeading label="Om oss" title="Människor på väg. Det är vår grej." description="Bossbuss finns för er som vill resa tillsammans. Vi fokuserar på bussresor, med personlig service från första kontakten till ankomsten." />
+  <section class="container story-grid">
+    <picture><source media="(max-width: 600px)" srcset="/images/bossbuss-shirt-600.webp" /><img class="story-photo" src="/images/bossbuss-shirt.webp" width="1000" height="1000" alt="Vit skjorta med Bossbuss svarta logotyp broderad på bröstet." /></picture>
+    <div><h2>Er resa.<br />Vårt engagemang.</h2>
+      <p class="lead">Vi utgår från Stockholmsområdet och hjälper grupper, föreningar och företag med sina bussresor.</p>
+      <p>För oss börjar en bra resa med att lyssna. Vi vill förstå era planer, önskemål och behov för att kunna hjälpa er med transporten.</p>
+      <p>Oavsett om ni planerar en utflykt, ett företagsevent eller en längre resa är vår ambition densamma: att ni ska känna er trygga, få ett personligt bemötande och komma fram bekvämt.</p>
+      <p>Vi tar hand om körningen och hjälper till med resans logistik, så att ni kan fokusera på det ni ska göra tillsammans.</p>
+      <a class="text-link" href="/busstjanster/">Upptäck våra busstjänster<Arrow /></a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import { services } from '../data';
+---
+<Layout title="Bussresor. Tillsammans hela vägen.">
+  <section class="hero container">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="short-line"></span> Bussresor med omtanke</p>
+      <h1>På väg.<br />Tillsammans.</h1>
+      <p class="hero-description">Från första hämtningen till sista stoppet.<br class="desktop-break" /> Vi tar er dit ni ska, tryggt och bekvämt.</p>
+      <div class="hero-actions"><a class="button button-dark" href="#forfragan">Planera er resa<Arrow diagonal /></a><a class="text-link" href="/busstjanster/">Våra busstjänster<Arrow /></a></div>
+      <div class="hero-footnote"><span>BOSSBUSS</span><p>För grupper, föreningar<br />och företag.</p></div>
+    </div>
+    <div class="hero-visual">
+      <picture><source media="(max-width: 600px)" srcset="/images/bossbuss-city-800.webp" /><img class="hero-image" src="/images/bossbuss-city.webp" width="1600" height="1200" alt="Bossbuss grafiska profil i limegrönt och svart på en upplyst reklamskylt vid en busshållplats." fetchpriority="high" /></picture>
+      <div class="image-caption"><span>En gemensam resa.<br />Er nästa destination.</span><a href="/busstjanster/" aria-label="Upptäck våra busstjänster"><Arrow diagonal /></a></div>
+    </div>
+  </section>
+  <div class="route-strip" aria-label="Våra resor"><div class="container"><span>GRUPPRESOR</span><span class="strip-cross" aria-hidden="true">+</span><span>FÖRETAGSEVENT</span><span class="strip-cross" aria-hidden="true">+</span><span>SKIDRESOR</span><span class="strip-cross" aria-hidden="true">+</span><span>SIGHTSEEING</span></div></div>
+  <section class="section container intro-grid">
+    <p class="eyebrow">01 / Det här är Bossbuss</p>
+    <div><h2>Ni gör planerna.<br />Vi tar er dit.</h2><p class="lead">En utflykt med föreningen, en skidresa med vännerna eller nästa företagsevent. Med Bossbuss börjar upplevelsen redan på vägen.</p><p>Vi hämtar er där ni är och kör er till ert resmål. Enkelresa eller tur och retur, med era önskemål i centrum.</p><a class="text-link" href="/om-oss/">Lär känna oss<Arrow /></a></div>
+  </section>
+  <section class="service-section section">
+    <div class="container"><div class="section-heading"><div><p class="eyebrow">02 / Våra busstjänster</p><h2>Olika planer.<br />Samma omtanke.</h2></div><a class="text-link" href="/busstjanster/">Alla busstjänster<Arrow /></a></div>
+      <div class="service-preview">{services.slice(0, 3).map((service, index) => <a class="service-card" href={`/busstjanster/#tjanst-${index + 1}`}><span class="service-number">0{index + 1}</span><h3>{service.title}</h3><p>{service.text}</p><span class="service-arrow"><Arrow diagonal /></span></a>)}</div>
+    </div>
+  </section>
+  <section class="vision-band"><div class="container"><p class="eyebrow">Vår vision</p><h2>Resan ska kännas<br />lika bra som målet.</h2><a class="text-link" href="/vision/">Det vi tror på<Arrow /></a></div><img src="/images/logo-stacked.svg" width="240" height="210" alt="" aria-hidden="true" loading="lazy" /></section>
+</Layout>
