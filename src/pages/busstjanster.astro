@@ -1,13 +1,40 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageHeading from '../components/PageHeading.astro';
-import Arrow from '../components/Arrow.astro';
-import { services } from '../data';
+import Layout from "../layouts/Layout.astro";
+import PageHeading from "../components/PageHeading.astro";
+import Arrow from "../components/Arrow.astro";
+import { services } from "../data";
+-(
+  <Layout
+    title="Busstjänster"
+    description="Boka buss för gruppresor, föreningar, företagsevent, skidresor och sightseeing. Bossbuss hämtar er där ni är och kör er till ert resmål."
+  >
+    <PageHeading
+      label="Busstjänster"
+      title="En bussresa för era planer."
+      description="Skidresa, sightseeing eller företagsevent? Vi kör grupper och föreningar, enkel väg eller tur och retur. Ni bestämmer målet, vi hjälper er med resan."
+    />
+    <section class="container" aria-label="Våra busstjänster">
+      <div class="service-list">
+        {services.map((service, index) => (
+          <article class="service-row" id={`tjanst-${index + 1}`}>
+            <span class="service-number">0{index + 1}</span>
+            <h2>{service.title}</h2>
+            <p>{service.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="service-bottom">
+        <p>
+          Vi hämtar er där ni är och lämnar er där ni ska.
+          <br />
+          Berätta om er resa så tar vi det vidare tillsammans.
+        </p>
+        <a class="button button-dark" href="#forfragan">
+          Skicka en förfrågan
+          <Arrow diagonal />
+        </a>
+      </div>
+    </section>
+  </Layout>
+);
 ---
-<Layout title="Busstjänster" description="Boka buss för gruppresor, föreningar, företagsevent, skidresor och sightseeing. Bossbuss hämtar er där ni är och kör er till ert resmål.">
-  <PageHeading label="Busstjänster" title="En bussresa för era planer." description="Skidresa, sightseeing eller företagsevent? Vi kör grupper och föreningar, enkel väg eller tur och retur. Ni bestämmer målet, vi hjälper er med resan." />
-  <section class="container" aria-label="Våra busstjänster">
-    <div class="service-list">{services.map((service, index) => <article class="service-row" id={`tjanst-${index + 1}`}><span class="service-number">0{index + 1}</span><h2>{service.title}</h2><p>{service.text}</p></article>)}</div>
-    <div class="service-bottom"><p>Vi hämtar er där ni är och lämnar er där ni ska.<br />Berätta om er resa så tar vi det vidare tillsammans.</p><a class="button button-dark" href="#forfragan">Skicka en förfrågan<Arrow diagonal /></a></div>
-  </section>
-</Layout>
