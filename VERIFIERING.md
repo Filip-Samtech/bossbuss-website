@@ -2,6 +2,12 @@
 
 Kontrollerat 28 september 2026.
 
+## Byggfix efter commit ea9b603
+
+Syntaxfelet i `src/pages/busstjanster.astro` har återskapats och rättats: sidans mall låg felaktigt inne i Astro-kodblocket. Efter ändringen passerar `npm run check` med 0 fel och varningar samt `npm run build` med sex genererade sidor på Node.js 24.16.0. `.nvmrc` anger samma Node-version för Cloudflare och paketets minimikrav är uppdaterat till 22.19.0, i linje med beroendena.
+
+Den bifogade Cloudflare-loggen kommer från Pages. Projektets `wrangler.jsonc` är avsedd för Workers med statiska assets, API och rate limiter. Workers-inställningar finns i README. Ett lyckat lokalt bygge innebär inte att en ny Cloudflare-deployment är verifierad.
+
 ## Genomfört
 
 - `astro check`: 15 Astro-filer, 0 fel och 0 varningar.

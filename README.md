@@ -6,7 +6,7 @@ GitHub-repo: <https://github.com/Filip-Samtech/bossbuss-website>
 
 ## Starta lokalt
 
-Installera Node.js 22.12 eller senare (Node.js 24 rekommenderas), öppna terminalen i projektmappen och kör:
+Installera Node.js 24.16.0, som också anges i `.nvmrc` för Cloudflares byggmiljö. Beroendena kräver minst Node.js 22.19.0. Öppna terminalen i projektmappen och kör:
 
 ```sh
 npm ci
@@ -35,6 +35,14 @@ Formuläret finns längst ner på alla sidor. Suad Sarajlija, VD, är kontaktper
 ## Publicera på Cloudflare
 
 Webbplatsen använder **Cloudflare Workers med statiska assets**, som Astro rekommenderar för nya Cloudflare-projekt. Sidorna förbyggs till HTML. Bara `/api/contact` behöver köra serverkod. Ingen Astro Cloudflare-adapter behövs för detta upplägg.
+
+### Automatisk publicering från GitHub
+
+I **Workers & Pages**, skapa en **Worker** genom att importera `Filip-Samtech/bossbuss-website` från GitHub. Välj produktionsgrenen `main`, projektrot `/`, byggkommando `npm run build` och publiceringskommando `npx wrangler deploy`. Låt Worker-namnet vara `bossbuss`, som i `wrangler.jsonc`. Node-versionen hämtas från `.nvmrc`; om en `NODE_VERSION` redan är inställd i Cloudflare, ändra den till `24.16.0` så att inställningarna stämmer överens.
+
+Projektet är konfigurerat för Workers. En Pages-logg som efterfrågar `pages_build_output_dir` betyder att ett Pages-projekt valts. Skapa då Worker-projektet enligt ovan. Att bara lägga till `pages_build_output_dir` eller publicera `dist` i Pages kopplar inte in den befintliga kontaktfunktionen och dess rate limiter.
+
+### Manuell publicering via terminalen
 
 1. Logga in på ditt Cloudflare-konto:
 

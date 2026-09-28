@@ -1,1 +1,1 @@
-{"editor.formatOnSave":true,"files.associations":{"*.astro":"astro"}}
+{"editor.formatOnSave":true,"files.associations":{"*.astro":"astro"},"[astro]":{"editor.defaultFormatter":"astro-build.astro-vscode"}}
